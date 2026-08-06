@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#006D8F">
+
+  <title>Observatorio Salarial SST 2026 | La Movida SST</title>
+  <meta name="description" content="Observatorio salarial y de honorarios para profesionales de Seguridad y Salud en el Trabajo en Venezuela.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.movidasst.com/">
+  <meta property="og:title" content="Observatorio Salarial SST 2026">
+  <meta property="og:description" content="Consulta medianas salariales, honorarios y tendencias del mercado SST en Venezuela.">
+  <meta property="og:image" content="https://lh3.googleusercontent.com/d/1MjVa3JxeKC95xEdlcZ5ZFMCKlatbrU2s=w1200">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Observatorio Salarial SST 2026">
+  <meta name="twitter:description" content="Análisis salarial para profesionales de Seguridad y Salud en el Trabajo en Venezuela.">
+  <meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1MjVa3JxeKC95xEdlcZ5ZFMCKlatbrU2s=w1200">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Roboto+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            mono: ['Roboto Mono', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#eefafa',
+              100: '#d7f3f2',
+              200: '#afe7e4',
+              300: '#78d4d0',
+              400: '#36b8b7',
+              500: '#139b9d',
+              600: '#087d82',
+              700: '#07656b',
+              800: '#075158',
+              900: '#08454a'
+            },
+            accent: {
+              50: '#f2faef',
+              100: '#e2f5dd',
+              200: '#c5eabb',
+              300: '#9dd88e',
+              400: '#78c567',
+              500: '#58B947',
+              600: '#419b35',
+              700: '#347a2c',
+              800: '#2c6128',
+              900: '#244f22'
+            },
+            movida: {
+              petrol: '#006D8F',
+              blue: '#0B2A6F',
+              green: '#58B947',
+              teal: '#00CFC0',
+              ink: '#102A43'
+            }
+          },
+          boxShadow: {
+            soft: '0 12px 30px -20px rgba(16,42,67,.24)',
+            premium: '0 28px 70px -38px rgba(11,42,111,.36)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(0, 207, 192, .09), transparent 26rem),
+        radial-gradient(circle at 96% 0%, rgba(11, 42, 111, .08), transparent 30rem),
+        #f5f8fa;
+      color: #334e68;
+      font-family: 'Outfit', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    ::selection { background: rgba(0,109,143,.18); color: #0B2A6F; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #eef3f6; }
+    ::-webkit-scrollbar-thumb { background: #bac8d3; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8ea2b2; }
+    select { appearance: none; -webkit-appearance: none; -moz-appearance: none; }
+    button, a, select { touch-action: manipulation; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline: 3px solid rgba(0,109,143,.28);
+      outline-offset: 3px;
+    }
+    .glass {
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(210,222,230,.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .app-card {
+      background: #fff;
+      border: 1px solid #dde7ed;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px -22px rgba(16,42,67,.26);
+    }
+    .section-kicker {
+      font-size: .69rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #087d82;
+    }
+    .metric-value {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -.035em;
+    }
+    @keyframes shimmer {
+      0% { background-position: -800px 0; }
+      100% { background-position: 800px 0; }
+    }
+    .skeleton {
+      animation: shimmer 1.7s infinite linear;
+      background: linear-gradient(90deg,#edf2f5 8%,#f8fafc 18%,#edf2f5 33%);
+      background-size: 900px 100%;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeIn .42s ease both; }
+    .chart-scroll { overflow-x: auto; overscroll-behavior-inline: contain; }
+    .chart-wide { min-width: 620px; }
+    .chart-medium { min-width: 520px; }
+    .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+    @media (max-width: 639px) {
+      .app-card { border-radius: 20px; }
+      .chart-wide { min-width: 560px; }
+      .chart-medium { min-width: 480px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *,*::before,*::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col pb-20 lg:pb-0">
+  <a id="top"></a>
+
+  <!-- Cabecera compacta -->
+  <header class="glass sticky top-0 z-40 border-x-0 border-t-0">
+    <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between gap-3">
+        <a href="#top" class="flex min-w-0 items-center gap-3" aria-label="Ir al inicio del observatorio">
+          <img src="https://lh3.googleusercontent.com/d/1MjVa3JxeKC95xEdlcZ5ZFMCKlatbrU2s=w512" alt="La Movida SST" class="h-12 w-12 flex-none rounded-full border border-slate-100 bg-white object-contain p-1 shadow-sm sm:h-14 sm:w-14">
+          <div class="min-w-0">
+            <p class="truncate text-base font-extrabold text-movida-ink sm:text-lg">Observatorio Salarial SST</p>
+            <div class="mt-0.5 flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full bg-accent-500"></span>
+              <span class="truncate text-[10px] font-extrabold uppercase tracking-[.15em] text-slate-500 sm:text-[11px]">Venezuela · Edición 2026</span>
+            </div>
+          </div>
+        </a>
+
+        <div class="flex items-center gap-2">
+          <span id="dataSourceStatus" class="hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-[11px] font-bold text-slate-600 sm:flex">
+            <span class="h-2 w-2 rounded-full bg-slate-300"></span> Conectando...
+          </span>
+          <a href="https://forms.gle/CNvQmcVhSQB6WFah9" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-movida-petrol px-3.5 py-2 text-sm font-extrabold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-movida-blue sm:px-5">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span class="hidden sm:inline">Participar</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="dashboard-content" class="mx-auto w-full max-w-7xl flex-1 px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
+    <!-- Hero -->
+    <section class="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-movida-blue via-movida-petrol to-brand-600 p-5 text-white shadow-premium sm:p-7 lg:p-9">
+      <div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-white/10"></div>
+      <div class="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-accent-400/20 blur-2xl"></div>
+      <div class="relative grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[.16em]">
+            <i class="fa-solid fa-chart-line"></i> Datos para decisiones profesionales
+          </span>
+          <h1 class="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl lg:text-5xl">¿Cuánto vale hoy el trabajo profesional en SST?</h1>
+          <p class="mt-3 max-w-3xl text-sm leading-relaxed text-white/80 sm:text-base">Explora salarios, honorarios, dispersión del mercado y diferencias por cargo, estado y tipo de empresa.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-2 sm:flex">
+          <div class="rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-sm">
+            <p class="text-[10px] font-bold uppercase tracking-[.12em] text-white/65">Moneda</p>
+            <p class="mt-1 text-lg font-extrabold">USD</p>
+          </div>
+          <div class="rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-sm">
+            <p class="text-[10px] font-bold uppercase tracking-[.12em] text-white/65">Cobertura</p>
+            <p class="mt-1 text-lg font-extrabold">Nacional</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtros -->
+    <section class="glass mt-4 rounded-2xl p-3 shadow-soft lg:sticky lg:top-[82px] lg:z-30">
+      <button id="filterToggle" type="button" class="flex min-h-12 w-full items-center justify-between rounded-xl px-2 text-left lg:hidden" aria-expanded="false" aria-controls="filterPanel">
+        <span class="flex items-center gap-3">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700"><i class="fa-solid fa-sliders"></i></span>
+          <span>
+            <span class="block text-sm font-extrabold text-movida-ink">Filtrar resultados</span>
+            <span class="block text-xs text-slate-500">Cargo y ubicación</span>
+          </span>
+        </span>
+        <i id="filterToggleIcon" class="fa-solid fa-chevron-down text-slate-400 transition-transform"></i>
+      </button>
+
+      <div id="filterPanel" class="hidden pt-3 lg:block lg:pt-0">
+        <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-[1fr_1fr_auto] lg:items-end">
+          <div>
+            <label for="filterCargo" class="mb-1.5 block px-1 text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500">Cargo</label>
+            <div class="relative">
+              <i class="fa-solid fa-briefcase pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+              <select id="filterCargo" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-10 text-base font-semibold text-slate-700 outline-none transition hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-100">
+                <option value="all">Todos los cargos</option>
+              </select>
+              <i class="fa-solid fa-chevron-down pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-400"></i>
+            </div>
+          </div>
+
+          <div>
+            <label for="filterEstado" class="mb-1.5 block px-1 text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500">Estado o ubicación</label>
+            <div class="relative">
+              <i class="fa-solid fa-location-dot pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+              <select id="filterEstado" class="min-h-12 w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-10 text-base font-semibold text-slate-700 outline-none transition hover:border-slate-300 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-100">
+                <option value="all">Todas las ubicaciones</option>
+              </select>
+              <i class="fa-solid fa-chevron-down pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs text-slate-400"></i>
+            </div>
+          </div>
+
+          <button onclick="resetFilters()" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-extrabold text-slate-600 transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-800">
+            <i class="fa-solid fa-filter-circle-xmark"></i> Limpiar
+          </button>
+        </div>
+        <div id="activeFilters" class="hidden flex-wrap gap-2 px-1 pt-3 text-xs"></div>
+      </div>
+    </section>
+
+    <!-- Skeleton -->
+    <div id="skeletonLoader" class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+      <div class="skeleton h-32 rounded-2xl"></div>
+      <div class="skeleton h-32 rounded-2xl"></div>
+      <div class="skeleton h-32 rounded-2xl"></div>
+      <div class="skeleton h-32 rounded-2xl"></div>
+    </div>
+
+    <!-- Error -->
+    <section id="errorState" class="app-card mt-5 hidden px-5 py-14 text-center">
+      <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-red-500"><i class="fa-solid fa-triangle-exclamation text-2xl"></i></div>
+      <h2 class="mt-5 text-2xl font-extrabold text-movida-ink">No pudimos conectar con los datos</h2>
+      <p class="mx-auto mt-2 max-w-md text-sm leading-relaxed text-slate-500">Revisa tu conexión o intenta nuevamente en unos segundos.</p>
+      <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+        <button onclick="fetchData()" class="min-h-12 rounded-xl bg-movida-blue px-6 py-3 text-sm font-extrabold text-white transition hover:bg-movida-petrol"><i class="fa-solid fa-rotate-right mr-2"></i>Reintentar</button>
+        <button onclick="loadMockDataManually()" class="min-h-12 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-extrabold text-slate-600 transition hover:bg-slate-50">Ver datos de prueba</button>
+      </div>
+    </section>
+
+    <div id="dashboard" class="mt-5 hidden space-y-5 animate-fade-in">
+      <!-- Sin datos -->
+      <section id="noData" class="app-card hidden px-5 py-14 text-center">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-slate-400"><i class="fa-solid fa-filter text-2xl"></i></div>
+        <h2 class="mt-5 text-xl font-extrabold text-movida-ink">Sin resultados para estos filtros</h2>
+        <p class="mx-auto mt-2 max-w-md text-sm text-slate-500">Prueba otra combinación o ayuda a ampliar la muestra participando en la encuesta.</p>
+        <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+          <button onclick="resetFilters()" class="min-h-12 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-extrabold text-slate-600">Limpiar filtros</button>
+          <a href="https://forms.gle/CNvQmcVhSQB6WFah9" target="_blank" rel="noopener noreferrer" class="min-h-12 rounded-xl bg-movida-petrol px-6 py-3 text-sm font-extrabold text-white">Participar ahora</a>
+        </div>
+      </section>
+
+      <!-- KPIs -->
+      <section id="kpiSection" data-requires-data class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
+        <article class="app-card relative overflow-hidden p-4 sm:p-5">
+          <div class="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-brand-50"></div>
+          <span class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700"><i class="fa-solid fa-users"></i></span>
+          <p class="mt-4 text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500">Muestra total</p>
+          <p id="kpiCount" class="metric-value mt-1 text-3xl font-extrabold text-movida-ink">0</p>
+        </article>
+
+        <article class="app-card relative overflow-hidden border-brand-200 p-4 sm:p-5">
+          <div class="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-brand-100"></div>
+          <span class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-brand-100 text-brand-800"><i class="fa-solid fa-money-bill-wave"></i></span>
+          <p class="mt-4 text-[10px] font-extrabold uppercase tracking-[.14em] text-brand-700">Salario mediano</p>
+          <p id="kpiSalary" class="metric-value mt-1 text-3xl font-extrabold text-movida-blue">$0</p>
+          <p class="mt-1 text-xs font-semibold text-slate-400">Ingreso mensual</p>
+        </article>
+
+        <article class="app-card relative overflow-hidden p-4 sm:p-5">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-50 text-accent-700"><i class="fa-solid fa-briefcase"></i></span>
+          <p class="mt-4 text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500">Hora de asesoría</p>
+          <p id="kpiAdvisory" class="metric-value mt-1 text-3xl font-extrabold text-movida-ink">$0</p>
+          <p class="mt-1 text-xs font-semibold text-slate-400">Promedio</p>
+        </article>
+
+        <article class="app-card relative overflow-hidden p-4 sm:p-5">
+          <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-movida-blue"><i class="fa-solid fa-chalkboard-user"></i></span>
+          <p class="mt-4 text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500">Hora de capacitación</p>
+          <p id="kpiTraining" class="metric-value mt-1 text-3xl font-extrabold text-movida-ink">$0</p>
+          <p class="mt-1 text-xs font-semibold text-slate-400">Promedio</p>
+        </article>
+      </section>
+
+      <!-- CTA -->
+      <section id="ctaBanner" data-requires-data class="app-card overflow-hidden border-0 bg-gradient-to-r from-movida-blue to-movida-petrol p-5 text-white sm:p-6">
+        <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div class="max-w-3xl">
+            <p class="text-[10px] font-extrabold uppercase tracking-[.16em] text-brand-100">Tu participación mejora el resultado</p>
+            <h2 class="mt-2 text-xl font-extrabold sm:text-2xl">Construyamos juntos una referencia salarial más precisa</h2>
+            <p class="mt-2 text-sm leading-relaxed text-white/75">Cada respuesta fortalece el análisis para toda la comunidad profesional de SST.</p>
+          </div>
+          <a href="https://forms.gle/CNvQmcVhSQB6WFah9" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-extrabold text-movida-blue shadow-sm transition hover:-translate-y-0.5">Completar encuesta <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </section>
+
+      <!-- Hallazgos -->
+      <section id="insightsContainer" data-requires-data class="app-card hidden p-5 sm:p-6">
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <div>
+            <p class="section-kicker">Lectura rápida</p>
+            <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Hallazgos clave</h2>
+          </div>
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600"><i class="fa-solid fa-lightbulb"></i></span>
+        </div>
+        <div id="insightsContent" class="grid gap-3 text-sm md:grid-cols-2"></div>
+      </section>
+
+      <!-- Metodología -->
+      <details id="methodologySection" data-requires-data class="app-card group overflow-hidden">
+        <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 sm:px-6">
+          <span class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700"><i class="fa-solid fa-circle-info"></i></span>
+            <span>
+              <span class="block text-sm font-extrabold text-movida-ink">Metodología y alcance</span>
+              <span class="block text-xs text-slate-500">Cómo interpretar los datos</span>
+            </span>
+          </span>
+          <i class="fa-solid fa-chevron-down text-slate-400 transition-transform group-open:rotate-180"></i>
+        </summary>
+        <div class="border-t border-slate-100 px-5 py-5 text-sm leading-relaxed text-slate-600 sm:px-6">
+          La encuesta reúne respuestas de profesionales de Seguridad y Salud en el Trabajo en Venezuela. Los montos representan el <strong class="text-movida-ink">ingreso mensual total percibido</strong>, sin separar salario base y bonificaciones, y se muestran en <strong class="text-brand-700">USD</strong> como moneda de referencia para el análisis.
+        </div>
+      </details>
+
+      <!-- Tendencia central -->
+      <section id="tendencySection" data-requires-data class="app-card p-5 sm:p-6 lg:p-7">
+        <div class="mb-5">
+          <p class="section-kicker">Interpretación del mercado</p>
+          <h2 class="mt-1 text-2xl font-extrabold text-movida-ink">Medidas de tendencia central</h2>
+          <p class="mt-1 text-sm text-slate-500">Tres maneras complementarias de leer el comportamiento salarial.</p>
+        </div>
+        <div class="grid gap-3 md:grid-cols-3">
+          <article class="relative overflow-hidden rounded-2xl border border-brand-200 bg-brand-50 p-5">
+            <span class="absolute right-0 top-0 rounded-bl-xl bg-brand-700 px-3 py-1.5 text-[9px] font-extrabold uppercase tracking-[.12em] text-white">Recomendada</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-brand-700 shadow-sm"><i class="fa-solid fa-grip-lines"></i></span>
+            <h3 class="mt-4 text-sm font-extrabold text-movida-ink">Mediana</h3>
+            <p id="statMedian" class="metric-value mt-1 text-3xl font-extrabold text-brand-800">$0</p>
+            <p class="mt-3 text-xs leading-relaxed text-slate-600">Divide la muestra en dos mitades y suele ser la referencia más estable para negociar.</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-slate-600 shadow-sm"><i class="fa-solid fa-calculator"></i></span>
+            <h3 class="mt-4 text-sm font-extrabold text-movida-ink">Promedio</h3>
+            <p id="statMean" class="metric-value mt-1 text-3xl font-extrabold text-slate-700">$0</p>
+            <p class="mt-3 text-xs leading-relaxed text-slate-500">Es sensible a valores extremos y puede subir por unos pocos ingresos muy altos.</p>
+          </article>
+          <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-slate-600 shadow-sm"><i class="fa-solid fa-layer-group"></i></span>
+            <h3 class="mt-4 text-sm font-extrabold text-movida-ink">Moda</h3>
+            <p id="statMode" class="metric-value mt-1 text-3xl font-extrabold text-slate-700">$0</p>
+            <p class="mt-3 text-xs leading-relaxed text-slate-500">Es el valor exacto más repetido y ayuda a detectar ofertas o tarifas habituales.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Rango y estabilidad -->
+      <section id="marketSection" data-requires-data class="grid gap-4 lg:grid-cols-2">
+        <article class="app-card p-5 sm:p-6">
+          <p class="section-kicker">Zona central</p>
+          <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Rango normal de mercado</h2>
+          <div class="mt-5 grid grid-cols-2 gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div>
+              <p class="text-[10px] font-extrabold uppercase tracking-[.12em] text-slate-500">Percentil 25</p>
+              <p id="statP25" class="metric-value mt-1 text-2xl font-extrabold text-slate-700">$0</p>
+            </div>
+            <div class="border-l border-slate-200 pl-4">
+              <p class="text-[10px] font-extrabold uppercase tracking-[.12em] text-brand-700">Percentil 75</p>
+              <p id="statP75" class="metric-value mt-1 text-2xl font-extrabold text-brand-800">$0</p>
+            </div>
+          </div>
+          <p class="mt-4 text-sm leading-relaxed text-slate-500">El 50 % central de los profesionales se encuentra entre estos dos valores.</p>
+        </article>
+
+        <article class="app-card p-5 sm:p-6">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="section-kicker">Dispersión</p>
+              <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Estabilidad salarial</h2>
+            </div>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700" title="Coeficiente de variación"><i class="fa-solid fa-chart-line"></i></span>
+          </div>
+          <div class="mt-5 flex flex-col gap-4">
+            <div id="cvBadge" class="self-start rounded-xl border border-slate-200 bg-slate-100 px-4 py-2 text-xs font-extrabold uppercase tracking-[.1em] text-slate-600">Calculando...</div>
+            <div>
+              <div class="mb-2 flex items-center justify-between">
+                <span class="text-[10px] font-extrabold uppercase tracking-[.12em] text-slate-500">Volatilidad</span>
+                <span id="statCV" class="font-mono text-xs font-bold text-slate-600">0%</span>
+              </div>
+              <div class="h-2.5 overflow-hidden rounded-full bg-slate-100"><div id="cvBar" class="h-full rounded-full bg-slate-400 transition-all duration-1000" style="width:0%"></div></div>
+            </div>
+            <p id="cvText" class="text-sm leading-relaxed text-slate-500">Analizando dispersión de datos...</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Entorno corporativo -->
+      <section id="corporateAnalysis" data-requires-data class="app-card p-5 sm:p-6 lg:p-7">
+        <div class="mb-5">
+          <p class="section-kicker">Contexto organizacional</p>
+          <h2 class="mt-1 text-2xl font-extrabold text-movida-ink">Entorno corporativo</h2>
+          <p class="mt-1 text-sm text-slate-500">Impacto del tipo y tamaño de empresa en la remuneración.</p>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+          <article>
+            <h3 class="mb-3 text-sm font-extrabold text-slate-700">Salario por tipo de empresa</h3>
+            <div class="chart-scroll rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-medium h-[320px]"><canvas id="chartType"></canvas></div></div>
+          </article>
+          <article>
+            <h3 class="mb-3 text-sm font-extrabold text-slate-700">Salario por tamaño de empresa</h3>
+            <div class="chart-scroll rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-medium h-[320px]"><canvas id="chartSize"></canvas></div></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Gráficos -->
+      <section id="chartsContainer" data-requires-data class="space-y-4">
+        <div class="grid gap-4 lg:grid-cols-2">
+          <article class="app-card p-5 sm:p-6">
+            <p class="section-kicker">Comparación por cargo</p>
+            <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Bandas salariales</h2>
+            <p class="mt-1 text-xs text-slate-500">Rango intercuartílico P25–P75</p>
+            <div class="chart-scroll mt-4 rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-wide h-[430px]"><canvas id="chartRoles"></canvas></div></div>
+          </article>
+
+          <article class="app-card p-5 sm:p-6">
+            <p class="section-kicker">Frecuencia</p>
+            <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Distribución de salarios</h2>
+            <p class="mt-1 text-xs text-slate-500">Cantidad de respuestas por rango</p>
+            <div class="chart-scroll mt-4 rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-wide h-[430px]"><canvas id="chartDistribution"></canvas></div></div>
+          </article>
+        </div>
+
+        <div class="grid gap-4 lg:grid-cols-3">
+          <article class="app-card p-5 sm:p-6 lg:col-span-2">
+            <p class="section-kicker">Cobertura territorial</p>
+            <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Densidad de muestra por estado</h2>
+            <div id="heatmapContainer" class="mt-5 max-h-[340px] overflow-y-auto pr-1"></div>
+          </article>
+
+          <article class="app-card p-5 sm:p-6">
+            <p class="section-kicker">Composición</p>
+            <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Proporción de género</h2>
+            <div class="mt-4 h-[300px]"><canvas id="chartGender"></canvas></div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="mt-auto border-t border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-7 text-center text-xs text-slate-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:text-left">
+      <div>
+        <div class="flex items-center justify-center gap-2 lg:justify-start">
+          <span class="h-2 w-2 rounded-full bg-accent-500"></span>
+          <strong class="text-movida-ink">La Movida SST</strong> · 2026
+        </div>
+        <p class="mt-2">Elaborado por <strong class="text-slate-700">David Linares Brea</strong></p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 lg:justify-end">
+        <a href="mailto:movidasst@gmail.com" class="rounded-lg px-2 py-1 font-semibold transition hover:bg-brand-50 hover:text-brand-800"><i class="fa-regular fa-envelope mr-1"></i>movidasst@gmail.com</a>
+        <a href="https://davidlinares.movidasst.com/" target="_blank" rel="noopener noreferrer" class="rounded-lg px-2 py-1 font-semibold transition hover:bg-brand-50 hover:text-brand-800"><i class="fa-solid fa-globe mr-1"></i>Perfil profesional</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Navegación móvil -->
+  <nav class="safe-bottom fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white/95 px-3 pt-2 shadow-[0_-10px_30px_-24px_rgba(16,42,67,.45)] backdrop-blur-lg lg:hidden" aria-label="Acciones rápidas">
+    <div class="grid grid-cols-3 gap-2">
+      <a href="#top" class="flex min-h-12 flex-col items-center justify-center rounded-xl text-[10px] font-extrabold uppercase tracking-wide text-slate-500"><i class="fa-solid fa-house mb-1 text-base"></i>Inicio</a>
+      <a href="https://forms.gle/CNvQmcVhSQB6WFah9" target="_blank" rel="noopener noreferrer" class="flex min-h-12 flex-col items-center justify-center rounded-xl bg-movida-petrol text-[10px] font-extrabold uppercase tracking-wide text-white"><i class="fa-solid fa-pen-to-square mb-1 text-base"></i>Participar</a>
+      <a href="https://www.movidasst.com" rel="noopener noreferrer" class="flex min-h-12 flex-col items-center justify-center rounded-xl text-[10px] font-extrabold uppercase tracking-wide text-slate-500"><i class="fa-solid fa-arrow-left mb-1 text-base"></i>Volver</a>
+    </div>
+  </nav>
+
+  <div id="toast" class="fixed bottom-24 left-1/2 z-[70] flex max-w-[calc(100%-32px)] -translate-x-1/2 translate-y-24 items-center gap-3 rounded-2xl border border-slate-700 bg-slate-900 px-4 py-3 text-white opacity-0 shadow-xl transition-all duration-300 lg:bottom-6 lg:left-auto lg:right-6 lg:translate-x-0">
+    <i id="toastIcon" class="fa-solid fa-circle-check text-brand-300"></i>
+    <span id="toastMsg" class="text-sm font-semibold">Mensaje</span>
+  </div>
+
+<script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZIHzf0axMDvl2DY3eKZNGXmGgvASbluOq5jOEs-c16WB0fjDfG9VK0PMSFQWWr8Qo/exec";
+        
+        let rawData = [];
+        let filteredData = [];
+        let charts = {};
+        
+        function generateMockData() {
+            const cargos = ["Coordinador SST", "Gerente SST", "Analista SST", "Consultor Externo", "Auditor ISO", "Inspector de Seguridad", "Médico Ocupacional", "Jefe HSEQ"];
+            const estados = ["Caracas", "Miranda", "Zulia", "Carabobo", "Aragua", "Lara", "Anzoátegui", "Bolívar"]; 
+            const empresas = ["Pequeña (1-50)", "Mediana (51-200)", "Grande (>200)"];
+            const tiposEmpresa = ["Privada Nacional", "Privada Multinacional", "Pública", "Independiente"];
+            const generos = ["Masculino", "Femenino", "Prefiero no decir"];
+            let data = [];
+            for(let i=0; i<150; i++) {
+                const cargo = cargos[Math.floor(Math.random() * cargos.length)];
+                let baseSalario = 1500;
+                if(cargo.includes("Gerente")) baseSalario = 4000;
+                if(cargo.includes("Jefe")) baseSalario = 3000;
+                if(cargo.includes("Inspector")) baseSalario = 1000;
+                let randomFactor = (Math.random() * 0.4) + 0.8; 
+                let finalSalary = Math.floor(baseSalario * randomFactor);
+
+                data.push({
+                    cargo: cargo,
+                    estado: estados[Math.floor(Math.random() * estados.length)],
+                    tamanoEmpresa: empresas[Math.floor(Math.random() * empresas.length)],
+                    tipoEmpresa: tiposEmpresa[Math.floor(Math.random() * tiposEmpresa.length)],
+                    genero: generos[Math.random() > 0.6 ? 0 : 1], 
+                    salario: finalSalary,
+                    honorarioAsesoria: Math.floor(30 + Math.random() * 100),
+                    honorarioCapacitacion: Math.floor(50 + Math.random() * 150)
+                });
+            }
+            return data;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Configuración global optimizada para gráficos limpios
+            Chart.register(ChartDataLabels);
+            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+            Chart.defaults.color = '#526579'; // slate-500
+            Chart.defaults.scale.grid.color = '#e9f0f4'; // slate-100
+            Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(11, 42, 71, 0.96)'; // slate-900 con opacidad
+            Chart.defaults.plugins.tooltip.titleFont = { family: "'JetBrains Mono'", size: 13, weight: 'bold' };
+            Chart.defaults.plugins.tooltip.bodyFont = { family: "'Plus Jakarta Sans'", size: 13 };
+            Chart.defaults.plugins.tooltip.padding = 12;
+            Chart.defaults.plugins.tooltip.cornerRadius = 12;
+            Chart.defaults.plugins.tooltip.boxPadding = 6;
+            Chart.defaults.plugins.tooltip.usePointStyle = true;
+            fetchData();
+        });
+
+        async function fetchData() {
+            const statusEl = document.getElementById('dataSourceStatus');
+            document.getElementById('errorState').classList.add('hidden');
+            document.getElementById('skeletonLoader').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
+                const response = await fetch(GOOGLE_SCRIPT_URL, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) throw new Error('Error HTTP: ' + response.status);
+                const data = await response.json();
+                
+                // Ya no lanzamos error si está vacío. Simplemente asignamos un arreglo vacío si no es válido.
+                rawData = Array.isArray(data) ? data : [];
+                
+                statusEl.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-200"></span> <span class="text-slate-600 font-medium text-xs">En línea</span>';
+                
+                if (rawData.length > 0) {
+                    showToast("Conexión Establecida", "success");
+                } else {
+                    showToast("Conectado (Sin datos)", "info");
+                }
+                
+                initializeDashboard();
+                
+            } catch (error) {
+                console.error("Fallo:", error);
+                document.getElementById('skeletonLoader').classList.add('hidden');
+                document.getElementById('errorState').classList.remove('hidden');
+                statusEl.innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-red-500 shadow-sm shadow-red-200"></span> <span class="text-slate-600 font-medium text-xs">Desconectado</span>';
+                showToast("Fallo de Conexión", "warning");
+            }
+        }
+
+        function loadMockDataManually() {
+            document.getElementById('errorState').classList.add('hidden');
+            rawData = generateMockData();
+            document.getElementById('dataSourceStatus').innerHTML = '<span class="w-2.5 h-2.5 rounded-full bg-amber-500 shadow-sm shadow-amber-200"></span> <span class="text-slate-600 font-medium text-xs">Modo Local</span>';
+            showToast("Datos de prueba cargados", "info");
+            initializeDashboard();
+        }
+
+        function initializeDashboard() {
+            populateFilters();
+            document.getElementById('filterCargo').addEventListener('change', updateDashboard);
+            document.getElementById('filterEstado').addEventListener('change', updateDashboard);
+            updateDashboard();
+            setTimeout(() => {
+                document.getElementById('skeletonLoader').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+            }, 300); // Transición más rápida
+        }
+
+        function populateFilters() {
+            const cargos = [...new Set(rawData.map(d => d.cargo).filter(Boolean))].sort();
+            const estados = [...new Set(rawData.map(d => d.estado).filter(Boolean))].sort();
+            const selCargo = document.getElementById('filterCargo');
+            const selEstado = document.getElementById('filterEstado');
+            
+            while (selCargo.options.length > 1) selCargo.remove(1);
+            while (selEstado.options.length > 1) selEstado.remove(1);
+            
+            cargos.forEach(c => selCargo.add(new Option(c, c)));
+            estados.forEach(e => selEstado.add(new Option(e, e)));
+        }
+
+        function resetFilters() {
+            document.getElementById('filterCargo').value = 'all';
+            document.getElementById('filterEstado').value = 'all';
+            updateDashboard();
+            showToast("Filtros restablecidos", "info");
+        }
+
+        function updateDashboard() {
+            const fCargo = document.getElementById('filterCargo').value;
+            const fEstado = document.getElementById('filterEstado').value;
+            
+            filteredData = rawData.filter(d => {
+                const matchCargo = fCargo === 'all' || d.cargo === fCargo;
+                const matchEstado = fEstado === 'all' || d.estado === fEstado;
+                return matchCargo && matchEstado;
+            });
+
+            const noDataEl = document.getElementById('noData');
+            const chartsContainer = document.getElementById('chartsContainer');
+            const insightsContainer = document.getElementById('insightsContainer');
+            const activeFiltersEl = document.getElementById('activeFilters');
+
+            if (filteredData.length === 0) {
+                noDataEl.classList.remove('hidden');
+                chartsContainer.classList.add('hidden');
+                insightsContainer.classList.add('hidden');
+                updateKPIs([]);
+            } else {
+                noDataEl.classList.add('hidden');
+                chartsContainer.classList.remove('hidden');
+                insightsContainer.classList.remove('hidden');
+                updateKPIs(filteredData);
+                updateCharts(filteredData);
+                generateInsights(filteredData);
+            }
+
+            if (fCargo !== 'all' || fEstado !== 'all') {
+                activeFiltersEl.classList.remove('hidden');
+                activeFiltersEl.innerHTML = `<span class="text-slate-500 font-semibold mr-1">Filtros:</span>`;
+                if(fCargo !== 'all') activeFiltersEl.innerHTML += `<span class="bg-brand-50 text-brand-700 px-2.5 py-1 rounded-md border border-brand-200 font-mono text-[10px] uppercase font-bold">${fCargo}</span>`;
+                if(fEstado !== 'all') activeFiltersEl.innerHTML += `<span class="bg-brand-50 text-brand-700 px-2.5 py-1 rounded-md border border-brand-200 font-mono text-[10px] uppercase font-bold">${fEstado}</span>`;
+            } else {
+                activeFiltersEl.classList.add('hidden');
+            }
+        }
+
+        // --- FUNCIONES MATEMÁTICAS ---
+        function calculateMedian(arr) {
+            if (arr.length === 0) return 0;
+            const sorted = [...arr].sort((a, b) => a - b);
+            const mid = Math.floor(sorted.length / 2);
+            return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+        }
+        function calculateMode(arr) {
+            if (arr.length === 0) return 0;
+            const frequency = {};
+            let maxFreq = 0;
+            let modes = [];
+            arr.forEach(val => {
+                frequency[val] = (frequency[val] || 0) + 1;
+                if (frequency[val] > maxFreq) maxFreq = frequency[val];
+            });
+            for (const val in frequency) {
+                if (frequency[val] === maxFreq) modes.push(parseFloat(val));
+            }
+            return modes.length > 0 ? modes[0] : 0;
+        }
+        function calculatePercentile(arr, p) {
+            if (arr.length === 0) return 0;
+            const sorted = [...arr].sort((a, b) => a - b);
+            const index = (p / 100) * (sorted.length - 1);
+            const lower = Math.floor(index);
+            const upper = Math.ceil(index);
+            const weight = index - lower;
+            if (upper >= sorted.length) return sorted[lower];
+            return sorted[lower] * (1 - weight) + sorted[upper] * weight;
+        }
+        function calculateStandardDeviation(arr) {
+            if (arr.length <= 1) return 0;
+            const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+            const variance = arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (arr.length - 1);
+            return Math.sqrt(variance);
+        }
+
+        // --- KPIs ---
+        function updateKPIs(data) {
+            const count = data.length;
+            const salarios = data.map(d => d.salario).filter(v => v > 0);
+            const asesoria = data.map(d => d.honorarioAsesoria).filter(v => v > 0);
+            const capacitacion = data.map(d => d.honorarioCapacitacion).filter(v => v > 0);
+            const avg = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
+            
+            const medianSalary = calculateMedian(salarios);
+            const meanSalary = avg(salarios);
+            const modeSalary = calculateMode(salarios);
+            const p25 = calculatePercentile(salarios, 25);
+            const p75 = calculatePercentile(salarios, 75);
+            const stdDev = calculateStandardDeviation(salarios);
+            const cv = meanSalary ? (stdDev / meanSalary) * 100 : 0;
+
+            animateValue("kpiCount", parseInt(document.getElementById("kpiCount").innerText.replace(/,/g, '') || 0), count, 800);
+            document.getElementById('kpiSalary').innerText = formatMoney(medianSalary);
+            document.getElementById('kpiAdvisory').innerText = formatMoney(avg(asesoria));
+            document.getElementById('kpiTraining').innerText = formatMoney(avg(capacitacion));
+            
+            document.getElementById('statMedian').innerText = formatMoney(medianSalary);
+            document.getElementById('statMean').innerText = formatMoney(meanSalary);
+            document.getElementById('statMode').innerText = formatMoney(modeSalary);
+            document.getElementById('statP25').innerText = formatMoney(p25);
+            document.getElementById('statP75').innerText = formatMoney(p75);
+            
+            const cvEl = document.getElementById('statCV');
+            const cvBar = document.getElementById('cvBar');
+            const cvBadge = document.getElementById('cvBadge');
+            const cvText = document.getElementById('cvText');
+            
+            cvEl.innerText = cv.toFixed(1) + '%';
+            cvBar.style.width = Math.min(cv, 100) + '%'; 
+
+            if (data.length < 5) {
+                cvBadge.className = "self-start px-4 py-1.5 rounded-lg bg-slate-100 text-slate-500 font-bold text-xs border border-slate-200 uppercase tracking-widest";
+                cvBadge.innerText = "Muestra Insuficiente";
+                cvText.innerText = "Se requieren más registros para un análisis estadístico fiable de la volatilidad.";
+                cvBar.className = "bg-slate-300 h-full rounded-full transition-all duration-1000";
+            } else if (cv < 15) {
+                cvBadge.className = "self-start px-4 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 font-bold text-xs border border-emerald-200 uppercase tracking-widest";
+                cvBadge.innerText = "Alta Estabilidad";
+                cvText.innerHTML = "Precios consolidados en el mercado. <strong>Poco margen de negociación estructural</strong>.";
+                cvBar.className = "bg-emerald-500 h-full rounded-full transition-all duration-1000";
+            } else if (cv < 35) {
+                cvBadge.className = "self-start px-4 py-1.5 rounded-lg bg-amber-50 text-amber-700 font-bold text-xs border border-amber-200 uppercase tracking-widest";
+                cvBadge.innerText = "Variabilidad Moderada";
+                cvText.innerHTML = "Diferencias presentes. La experiencia y <strong>habilidades de negociación</strong> impactan el resultado.";
+                cvBar.className = "bg-amber-400 h-full rounded-full transition-all duration-1000";
+            } else {
+                cvBadge.className = "self-start px-4 py-1.5 rounded-lg bg-rose-50 text-rose-700 font-bold text-xs border border-rose-200 uppercase tracking-widest";
+                cvBadge.innerText = "Alta Volatilidad";
+                cvText.innerHTML = "Ausencia de estándar. La remuneración depende <strong>casi exclusivamente de acuerdos individuales</strong>.";
+                cvBar.className = "bg-rose-500 h-full rounded-full transition-all duration-1000";
+            }
+        }
+
+        // --- INSIGHTS GENERATOR ---
+        function generateInsights(data) {
+            const container = document.getElementById('insightsContent');
+            if (!container) return;
+            
+            const salarios = data.map(d => d.salario).filter(v => v > 0);
+            if (salarios.length < 5) {
+                container.innerHTML = '<p class="text-slate-500 text-sm">Acumulando datos para generar hallazgos analíticos...</p>';
+                return;
+            }
+
+            const p25 = calculatePercentile(salarios, 25);
+            const p75 = calculatePercentile(salarios, 75);
+            const gap = p75 - p25;
+            
+            let gapText = "";
+            let gapIcon = "";
+            let gapColor = "";
+            
+            if (gap > 1000) {
+                gapIcon = "fa-chart-pie"; gapColor = "text-amber-500";
+                gapText = `<strong class="text-slate-800">Brecha Salarial Significativa:</strong> Diferencia intercuartílica de >${formatMoney(gap)}.`;
+            } else if (gap < 300) {
+                gapIcon = "fa-compress"; gapColor = "text-emerald-500";
+                gapText = `<strong class="text-slate-800">Consenso de Mercado:</strong> Bandas salariales estrechas con alta concentración.`;
+            } else {
+                gapIcon = "fa-scale-unbalanced"; gapColor = "text-blue-500";
+                gapText = `<strong class="text-slate-800">Distribución Normal:</strong> Curva salarial predecible según seniority.`;
+            }
+
+            const sizeStats = groupByAvg(data, 'tamanoEmpresa', 'salario');
+            let sizeInsight = "";
+            if(sizeStats['Grande (>200)'] && sizeStats['Pequeña (1-50)']){
+                const diff = sizeStats['Grande (>200)'] - sizeStats['Pequeña (1-50)'];
+                if(diff > 0) {
+                    sizeInsight = `<strong class="text-slate-800">Prima Corporativa:</strong> Estructuras de >200 empleados pagan una prima promedio del ${Math.round((diff/sizeStats['Pequeña (1-50)'])*100)}%.`;
+                }
+            }
+
+            container.innerHTML = `
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-start gap-3">
+                    <i class="fa-solid ${gapIcon} ${gapColor} mt-0.5 text-base"></i>
+                    <p class="leading-relaxed text-slate-600">${gapText}</p>
+                </div>
+                ${sizeInsight ? `
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-start gap-3">
+                    <i class="fa-solid fa-building text-brand-500 mt-0.5 text-base"></i>
+                    <p class="leading-relaxed text-slate-600">${sizeInsight}</p>
+                </div>` : ''}
+            `;
+        }
+
+        // --- GRÁFICOS ---
+        function updateCharts(data) {
+            // Paleta dinámica de colores pasteles generada para armonía visual
+            const pastelPalette = [
+                'rgba(0, 109, 143, 0.88)',   // Azul petróleo
+                'rgba(88, 185, 71, 0.86)',   // Verde SST
+                'rgba(11, 42, 111, 0.86)',   // Azul profundo
+                'rgba(0, 207, 192, 0.82)',   // Turquesa
+                'rgba(245, 158, 11, 0.82)',  // Ámbar
+                'rgba(124, 58, 237, 0.78)',  // Violeta
+                'rgba(14, 165, 233, 0.80)',  // Azul claro
+                'rgba(239, 68, 68, 0.76)',   // Rojo
+                'rgba(100, 116, 139, 0.78)'  // Gris azulado
+            ];
+
+            // 1. ROLES (Floating Bars)
+            const rolesObj = {};
+            data.forEach(d => {
+                if(!d.cargo || d.salario <= 0) return;
+                if(!rolesObj[d.cargo]) rolesObj[d.cargo] = [];
+                rolesObj[d.cargo].push(d.salario);
+            });
+            
+            const rolesChartData = [];
+            Object.keys(rolesObj).forEach(role => {
+                const arr = rolesObj[role];
+                if(arr.length > 1) {
+                    const rP25 = calculatePercentile(arr, 25);
+                    const rP75 = calculatePercentile(arr, 75);
+                    rolesChartData.push({ y: role, x: [rP25, rP75] });
+                }
+            });
+            rolesChartData.sort((a, b) => b.x[1] - a.x[1]); 
+            const topRolesData = rolesChartData.slice(0, 10);
+            
+            const rolesColors = topRolesData.map((_, i) => pastelPalette[i % pastelPalette.length]);
+
+            renderChart('chartRoles', 'bar', {
+                labels: topRolesData.map(d => d.y),
+                datasets: [{
+                    label: 'Rango Salarial',
+                    data: topRolesData.map(d => d.x),
+                    backgroundColor: rolesColors, 
+                    borderColor: 'transparent',
+                    borderWidth: 0,
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+            }, { 
+                indexAxis: 'y',
+                plugins: {
+                    tooltip: { 
+                        callbacks: { 
+                            label: (ctx) => `Rango: ${formatMoney(ctx.raw[0])} - ${formatMoney(ctx.raw[1])}` 
+                        } 
+                    },
+                    datalabels: { 
+                        display: (context) => window.innerWidth >= 768, 
+                        color: '#475569', 
+                        font: { size: 11, family: "'JetBrains Mono'", weight: 'bold' }, 
+                        anchor: 'end', 
+                        align: 'right', 
+                        padding: { left: 5 },
+                        formatter: (val) => formatMoney(val[1]) 
+                    }
+                },
+                scales: {
+                    x: {
+                        grace: '10%' // Añade espacio para que los labels no se corten
+                    }
+                }
+            });
+
+            // 2. HISTOGRAMA
+            const salaries = data.map(d => d.salario).filter(s => s > 0);
+            const bucketSize = 500;
+            const buckets = {};
+            salaries.forEach(s => {
+                const idx = Math.floor(s / bucketSize);
+                const label = `$${idx * bucketSize} - $${(idx + 1) * bucketSize}`;
+                buckets[label] = (buckets[label] || 0) + 1;
+            });
+            const sortedBuckets = Object.entries(buckets).sort((a, b) => parseInt(a[0].replace('$','')) - parseInt(b[0].replace('$','')));
+
+            const distColors = sortedBuckets.map((_, i) => pastelPalette[i % pastelPalette.length]);
+
+            renderChart('chartDistribution', 'bar', {
+                labels: sortedBuckets.map(b => b[0]),
+                datasets: [{ 
+                    label: 'Profesionales', 
+                    data: sortedBuckets.map(b => b[1]), 
+                    backgroundColor: distColors,
+                    borderRadius: 6,
+                    barPercentage: 0.8
+                }]
+            }, {
+                plugins: { 
+                    datalabels: { 
+                        display: (context) => window.innerWidth >= 640,
+                        anchor: 'end', 
+                        align: 'top', 
+                        color: '#475569', 
+                        font: {weight:'bold', family: "'JetBrains Mono'"},
+                        offset: 4
+                    } 
+                },
+                scales: {
+                    y: { grace: '10%' }
+                }
+            });
+
+            // 3. TIPO EMPRESA
+            const typeStats = groupByAvg(data, 'tipoEmpresa', 'salario');
+            const sortedTypes = Object.entries(typeStats)
+                .filter(([key]) => key && key !== 'undefined' && key !== 'N/A')
+                .sort((a, b) => b[1] - a[1]); 
+
+            renderChart('chartType', 'bar', {
+                labels: sortedTypes.map(i => i[0]),
+                datasets: [{
+                    label: 'Promedio USD',
+                    data: sortedTypes.map(i => i[1]),
+                    backgroundColor: pastelPalette.slice(0, sortedTypes.length),
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+            }, {
+                indexAxis: 'y',
+                plugins: { 
+                    datalabels: { 
+                        display: (context) => window.innerWidth >= 768,
+                        anchor: 'end', 
+                        align: 'right', 
+                        color: '#475569', 
+                        font: {weight:'bold', family: "'JetBrains Mono'"}, 
+                        padding: {left: 5},
+                        formatter: (val) => formatMoney(val) 
+                    } 
+                },
+                scales: {
+                    x: { grid: { display: false }, grace: '15%' },
+                    y: { grid: { display: false } }
+                }
+            });
+
+            // 4. TAMAÑO EMPRESA
+            const sizeStats = groupByAvg(data, 'tamanoEmpresa', 'salario');
+            // Ordenamos por la lógica del string (Pequeña, Mediana, Grande)
+            const orderMap = { "Pequeña (1-50)": 1, "Mediana (51-200)": 2, "Grande (>200)": 3 };
+            const sortedSizes = Object.entries(sizeStats)
+                .filter(([key]) => key !== 'undefined' && key !== 'N/A')
+                .sort((a, b) => (orderMap[a[0]] || 99) - (orderMap[b[0]] || 99));
+
+            const cleanSizeLabels = sortedSizes.map(i => i[0].split('(')[0].trim());
+            const palette = [pastelPalette[1], pastelPalette[0], pastelPalette[4]]; // Verde, Azul y Morado pastel
+
+            renderChart('chartSize', 'bar', {
+                labels: cleanSizeLabels,
+                datasets: [{
+                    label: 'Promedio USD',
+                    data: sortedSizes.map(i => i[1]),
+                    backgroundColor: palette,
+                    borderRadius: 6,
+                    barPercentage: 0.6
+                }]
+            }, {
+                plugins: { 
+                    datalabels: { 
+                        display: (context) => window.innerWidth >= 640,
+                        anchor: 'end', 
+                        align: 'top', 
+                        color: '#475569', 
+                        font: {weight:'bold', family: "'JetBrains Mono'"},
+                        offset: 4,
+                        formatter: (val) => formatMoney(val) 
+                    } 
+                },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { grace: '15%' }
+                }
+            });
+
+            // 5. MAPA CALOR (Lista elegante)
+            const stateStats = countBy(data, 'estado');
+            const sortedStates = Object.entries(stateStats).sort((a, b) => b[1] - a[1]);
+            const maxParticipants = sortedStates[0] ? sortedStates[0][1] : 1;
+            const heatContainer = document.getElementById('heatmapContainer');
+            heatContainer.innerHTML = '';
+            
+            sortedStates.forEach(([state, count]) => {
+                const intensity = count / maxParticipants;
+                // Paleta de intensidades pasteles
+                let barColorClass = 'bg-slate-200';
+                if(intensity > 0.8) barColorClass = 'bg-brand-500';
+                else if(intensity > 0.5) barColorClass = 'bg-brand-400';
+                else if(intensity > 0.25) barColorClass = 'bg-accent-300';
+                
+                heatContainer.innerHTML += `
+                    <div class="flex items-center gap-4 mb-4 text-sm group">
+                        <div class="w-28 font-semibold text-slate-700 truncate group-hover:text-brand-600 transition-colors">${state}</div>
+                        <div class="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full ${barColorClass} rounded-full transition-all duration-1000" style="width: ${intensity * 100}%"></div>
+                        </div>
+                        <div class="w-10 font-mono text-xs font-bold text-slate-500 text-right">${count}</div>
+                    </div>`;
+            });
+
+            // 6. GÉNERO
+            const genderStats = countBy(data, 'genero');
+            renderChart('chartGender', 'doughnut', {
+                labels: Object.keys(genderStats),
+                datasets: [{ 
+                    data: Object.values(genderStats), 
+                    backgroundColor: [pastelPalette[0], pastelPalette[1], pastelPalette[3]], 
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 4 
+                }]
+            }, {
+                cutout: '75%',
+                plugins: { 
+                    legend: { 
+                        position: 'bottom', 
+                        labels: { usePointStyle: true, padding: 20, font: {family: "'Plus Jakarta Sans'"} } 
+                    }, 
+                    datalabels: { 
+                        display: false // Apagado en el donut para que se vea más limpio
+                    }
+                }
+            });
+        }
+
+        function renderChart(id, type, data, options = {}) {
+            const ctx = document.getElementById(id).getContext('2d');
+            if (charts[id]) charts[id].destroy();
+            
+            charts[id] = new Chart(ctx, { 
+                type, 
+                data, 
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { 
+                        legend: { display: false }, 
+                        ...options.plugins 
+                    }, 
+                    scales: (type !== 'doughnut') ? { 
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { borderDash: [4, 4], color: '#f1f5f9' }, 
+                            ticks: { 
+                                callback: (val) => (type === 'bar' && options.indexAxis !== 'y' && val >= 1000) ? '$' + Math.round(val/1000) + 'k' : val, 
+                                font: {family: "'JetBrains Mono'"},
+                                ...options.scales?.y?.ticks 
+                            }, 
+                            border: {display: false},
+                            ...options.scales?.y 
+                        }, 
+                        x: { 
+                            grid: { display: false }, 
+                            ticks: {font: {family: "'Plus Jakarta Sans'"}},
+                            border: {display: false},
+                            ...options.scales?.x 
+                        } 
+                    } : {}, 
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    ...options 
+                } 
+            });
+        }
+
+        // --- UTILIDADES ---
+        function groupByAvg(data, groupKey, valueKey) {
+            const groups = {};
+            data.forEach(item => {
+                const key = item[groupKey] || 'N/A';
+                const val = item[valueKey];
+                if (val > 0) { 
+                    if (!groups[key]) groups[key] = { sum: 0, count: 0 }; 
+                    groups[key].sum += val; 
+                    groups[key].count++; 
+                }
+            });
+            const result = {}; 
+            for (let key in groups) result[key] = groups[key].sum / groups[key].count; 
+            return result;
+        }
+        function countBy(data, key) { 
+            return data.reduce((acc, curr) => { 
+                const k = curr[key] || 'Otros'; 
+                acc[k] = (acc[k] || 0) + 1; 
+                return acc; 
+            }, {}); 
+        }
+        function formatMoney(amount) { 
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount); 
+        }
+        function animateValue(id, start, end, duration) { 
+            if (start === end) return; 
+            const obj = document.getElementById(id); 
+            const range = end - start; 
+            let startTime = null; 
+            function animation(currentTime) { 
+                if (!startTime) startTime = currentTime; 
+                const progress = Math.min((currentTime - startTime) / duration, 1); 
+                // Función de suavizado (easeOutQuart)
+                const easeProgress = 1 - Math.pow(1 - progress, 4);
+                const value = Math.floor(easeProgress * range + start); 
+                obj.innerHTML = value.toLocaleString(); 
+                if (progress < 1) window.requestAnimationFrame(animation); 
+            } 
+            window.requestAnimationFrame(animation); 
+        }
+        function showToast(msg, type = 'info') { 
+            const toast = document.getElementById('toast'); 
+            const icon = document.getElementById('toastIcon'); 
+            const txt = document.getElementById('toastMsg'); 
+            txt.innerText = msg; 
+            
+            toast.classList.remove('translate-y-24', 'opacity-0'); 
+            
+            if(type === 'success') icon.className = "fa-solid fa-circle-check text-emerald-400 text-lg"; 
+            if(type === 'warning') icon.className = "fa-solid fa-triangle-exclamation text-amber-400 text-lg"; 
+            if(type === 'info') icon.className = "fa-solid fa-circle-info text-blue-400 text-lg"; 
+            
+            setTimeout(() => { 
+                toast.classList.add('translate-y-24', 'opacity-0'); 
+            }, 3500); 
+        }
+    </script>
+
+  <script>
+    // Mejoras de interacción y experiencia móvil sin alterar la lógica de datos.
+    (function () {
+      const filterToggle = document.getElementById('filterToggle');
+      const filterPanel = document.getElementById('filterPanel');
+      const filterToggleIcon = document.getElementById('filterToggleIcon');
+
+      if (filterToggle && filterPanel) {
+        filterToggle.addEventListener('click', () => {
+          const open = filterToggle.getAttribute('aria-expanded') === 'true';
+          filterToggle.setAttribute('aria-expanded', String(!open));
+          filterPanel.classList.toggle('hidden', open);
+          filterToggleIcon?.classList.toggle('rotate-180', !open);
+        });
+      }
+
+      const originalUpdateDashboard = window.updateDashboard;
+      if (typeof originalUpdateDashboard === 'function') {
+        window.updateDashboard = function (...args) {
+          const result = originalUpdateDashboard.apply(this, args);
+          const hasData = Array.isArray(window.filteredData) ? window.filteredData.length > 0 : true;
+          document.querySelectorAll('[data-requires-data]').forEach((element) => {
+            element.classList.toggle('hidden', !hasData);
+          });
+          if (window.innerWidth < 1024 && filterPanel && !filterPanel.classList.contains('hidden')) {
+            filterPanel.classList.add('hidden');
+            filterToggle?.setAttribute('aria-expanded', 'false');
+            filterToggleIcon?.classList.remove('rotate-180');
+          }
+          return result;
+        };
+      }
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024 && filterPanel) {
+          filterPanel.classList.remove('hidden');
+          filterToggle?.setAttribute('aria-expanded', 'true');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
