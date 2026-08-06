@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme-color" content="#006D8F">
 
@@ -141,14 +142,39 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .animate-fade-in { animation: fadeIn .42s ease both; }
-    .chart-scroll { overflow-x: auto; overscroll-behavior-inline: contain; }
-    .chart-wide { min-width: 620px; }
-    .chart-medium { min-width: 520px; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+    main, header, footer, section, article, nav, .app-card { min-width: 0; max-width: 100%; }
+    img, svg, video { max-width: 100%; height: auto; }
+    canvas { display: block; width: 100% !important; max-width: 100% !important; }
+    .chart-scroll {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow: hidden;
+      overscroll-behavior-inline: contain;
+    }
+    .chart-wide, .chart-medium {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0 !important;
+      position: relative;
+    }
+    .chart-wide { height: 390px; }
+    .chart-medium { height: 300px; }
     .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
     @media (max-width: 639px) {
-      .app-card { border-radius: 20px; }
-      .chart-wide { min-width: 560px; }
-      .chart-medium { min-width: 480px; }
+      .app-card { border-radius: 18px; }
+      .chart-scroll { padding: .5rem !important; border-radius: 14px !important; }
+      #heatmapContainer .state-name { width: 5.5rem; }
+      .chart-wide { height: 360px; }
+      .chart-medium { height: 280px; }
+      .section-kicker { font-size: .62rem; letter-spacing: .12em; }
+      .metric-value { letter-spacing: -.025em; }
+    }
+    @media (max-width: 359px) {
+      .chart-wide { height: 340px; }
+      .chart-medium { height: 260px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *,*::before,*::after {
@@ -166,12 +192,12 @@
 
   <!-- Cabecera compacta -->
   <header class="glass sticky top-0 z-40 border-x-0 border-t-0">
-    <div class="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-3 py-2.5 sm:px-6 sm:py-3 lg:px-8">
       <div class="flex items-center justify-between gap-3">
         <a href="#top" class="flex min-w-0 items-center gap-3" aria-label="Ir al inicio del observatorio">
-          <img src="https://lh3.googleusercontent.com/d/1MjVa3JxeKC95xEdlcZ5ZFMCKlatbrU2s=w512" alt="La Movida SST Plus" class="h-12 w-12 flex-none rounded-full border border-slate-100 bg-white object-contain p-1 shadow-sm sm:h-14 sm:w-14">
+          <img src="https://lh3.googleusercontent.com/d/1MjVa3JxeKC95xEdlcZ5ZFMCKlatbrU2s=w512" alt="La Movida SST Plus" class="h-10 w-10 flex-none rounded-full border border-slate-100 bg-white object-contain p-1 shadow-sm sm:h-14 sm:w-14">
           <div class="min-w-0">
-            <p class="truncate text-base font-extrabold text-movida-ink sm:text-lg">La Movida SST <span class="text-movida-petrol">Plus</span></p>
+            <p class="truncate text-sm font-extrabold leading-tight text-movida-ink sm:text-lg">La Movida SST <span class="text-movida-petrol">Plus</span></p>
             <div class="mt-0.5 flex items-center gap-2">
               <span class="h-2 w-2 rounded-full bg-accent-500"></span>
               <span class="truncate text-[10px] font-extrabold uppercase tracking-[.13em] text-slate-500 sm:text-[11px]">Observatorio Salarial · 2026</span>
@@ -192,9 +218,9 @@
     </div>
   </header>
 
-  <main id="dashboard-content" class="mx-auto w-full max-w-7xl flex-1 px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
+  <main id="dashboard-content" class="mx-auto w-full max-w-7xl flex-1 px-3 py-3.5 sm:px-6 sm:py-7 lg:px-8">
     <!-- Hero -->
-    <section class="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-movida-blue via-movida-petrol to-brand-600 p-5 text-white shadow-premium sm:p-7 lg:p-9">
+    <section class="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-movida-blue via-movida-petrol to-brand-600 p-4 text-white shadow-premium sm:rounded-[28px] sm:p-7 lg:p-9">
       <div class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-white/10"></div>
       <div class="pointer-events-none absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-accent-400/20 blur-2xl"></div>
       <div class="relative grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -202,7 +228,7 @@
           <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[.16em]">
             <i class="fa-solid fa-shield-heart"></i> De la Reacción a la Prevención
           </span>
-          <h1 class="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.05] tracking-tight sm:text-4xl lg:text-5xl">¿Cuánto vale hoy el trabajo profesional en SST?</h1>
+          <h1 class="mt-3 max-w-3xl text-2xl font-extrabold leading-[1.08] tracking-tight sm:mt-4 sm:text-4xl lg:text-5xl">¿Cuánto vale hoy el trabajo profesional en SST?</h1>
           <p class="mt-3 max-w-3xl text-sm leading-relaxed text-white/80 sm:text-base">Explora salarios, honorarios, dispersión del mercado y diferencias por cargo, estado y tipo de empresa.</p>
         </div>
         <div class="grid grid-cols-2 gap-2 sm:flex">
@@ -219,7 +245,7 @@
     </section>
 
     <!-- Filtros -->
-    <section class="glass mt-4 rounded-2xl p-3 shadow-soft lg:sticky lg:top-[82px] lg:z-30">
+    <section class="glass mt-3 rounded-2xl p-2.5 shadow-soft sm:mt-4 sm:p-3 lg:sticky lg:top-[82px] lg:z-30">
       <button id="filterToggle" type="button" class="flex min-h-12 w-full items-center justify-between rounded-xl px-2 text-left lg:hidden" aria-expanded="false" aria-controls="filterPanel">
         <span class="flex items-center gap-3">
           <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700"><i class="fa-solid fa-sliders"></i></span>
@@ -264,7 +290,7 @@
     </section>
 
     <!-- Skeleton -->
-    <div id="skeletonLoader" class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+    <div id="skeletonLoader" class="mt-4 grid grid-cols-2 gap-2.5 sm:mt-5 sm:gap-3 lg:grid-cols-4 lg:gap-5">
       <div class="skeleton h-32 rounded-2xl"></div>
       <div class="skeleton h-32 rounded-2xl"></div>
       <div class="skeleton h-32 rounded-2xl"></div>
@@ -282,7 +308,7 @@
       </div>
     </section>
 
-    <div id="dashboard" class="mt-5 hidden space-y-5 animate-fade-in">
+    <div id="dashboard" class="mt-4 hidden space-y-4 animate-fade-in sm:mt-5 sm:space-y-5">
       <!-- Sin datos -->
       <section id="noData" class="app-card hidden px-5 py-14 text-center">
         <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-slate-400"><i class="fa-solid fa-filter text-2xl"></i></div>
@@ -295,33 +321,33 @@
       </section>
 
       <!-- KPIs -->
-      <section id="kpiSection" data-requires-data class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-5">
+      <section id="kpiSection" data-requires-data class="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4 lg:gap-5">
         <article class="app-card relative overflow-hidden p-4 sm:p-5">
           <div class="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-brand-50"></div>
           <span class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700"><i class="fa-solid fa-users"></i></span>
           <p class="mt-4 text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500">Muestra total</p>
-          <p id="kpiCount" class="metric-value mt-1 text-3xl font-extrabold text-movida-ink">0</p>
+          <p id="kpiCount" class="metric-value mt-1 text-[1.65rem] font-extrabold leading-none text-movida-ink sm:text-3xl">0</p>
         </article>
 
         <article class="app-card relative overflow-hidden border-brand-200 p-4 sm:p-5">
           <div class="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-brand-100"></div>
           <span class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-brand-100 text-brand-800"><i class="fa-solid fa-money-bill-wave"></i></span>
           <p class="mt-4 text-[10px] font-extrabold uppercase tracking-[.14em] text-brand-700">Salario mediano</p>
-          <p id="kpiSalary" class="metric-value mt-1 text-3xl font-extrabold text-movida-blue">$0</p>
+          <p id="kpiSalary" class="metric-value mt-1 text-[1.65rem] font-extrabold leading-none text-movida-blue sm:text-3xl">$0</p>
           <p class="mt-1 text-xs font-semibold text-slate-400">Ingreso mensual</p>
         </article>
 
         <article class="app-card relative overflow-hidden p-4 sm:p-5">
           <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-50 text-accent-700"><i class="fa-solid fa-briefcase"></i></span>
           <p class="mt-4 text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500">Hora de asesoría</p>
-          <p id="kpiAdvisory" class="metric-value mt-1 text-3xl font-extrabold text-movida-ink">$0</p>
+          <p id="kpiAdvisory" class="metric-value mt-1 text-[1.65rem] font-extrabold leading-none text-movida-ink sm:text-3xl">$0</p>
           <p class="mt-1 text-xs font-semibold text-slate-400">Promedio</p>
         </article>
 
         <article class="app-card relative overflow-hidden p-4 sm:p-5">
           <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-movida-blue"><i class="fa-solid fa-chalkboard-user"></i></span>
           <p class="mt-4 text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500">Hora de capacitación</p>
-          <p id="kpiTraining" class="metric-value mt-1 text-3xl font-extrabold text-movida-ink">$0</p>
+          <p id="kpiTraining" class="metric-value mt-1 text-[1.65rem] font-extrabold leading-none text-movida-ink sm:text-3xl">$0</p>
           <p class="mt-1 text-xs font-semibold text-slate-400">Promedio</p>
         </article>
       </section>
@@ -447,11 +473,11 @@
         <div class="grid gap-6 lg:grid-cols-2">
           <article>
             <h3 class="mb-3 text-sm font-extrabold text-slate-700">Salario por tipo de empresa</h3>
-            <div class="chart-scroll rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-medium h-[320px]"><canvas id="chartType"></canvas></div></div>
+            <div class="chart-scroll rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-medium"><canvas id="chartType"></canvas></div></div>
           </article>
           <article>
             <h3 class="mb-3 text-sm font-extrabold text-slate-700">Salario por tamaño de empresa</h3>
-            <div class="chart-scroll rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-medium h-[320px]"><canvas id="chartSize"></canvas></div></div>
+            <div class="chart-scroll rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-medium"><canvas id="chartSize"></canvas></div></div>
           </article>
         </div>
       </section>
@@ -463,14 +489,14 @@
             <p class="section-kicker">Comparación por cargo</p>
             <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Bandas salariales</h2>
             <p class="mt-1 text-xs text-slate-500">Rango intercuartílico P25–P75</p>
-            <div class="chart-scroll mt-4 rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-wide h-[430px]"><canvas id="chartRoles"></canvas></div></div>
+            <div class="chart-scroll mt-4 rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-wide"><canvas id="chartRoles"></canvas></div></div>
           </article>
 
           <article class="app-card p-5 sm:p-6">
             <p class="section-kicker">Frecuencia</p>
             <h2 class="mt-1 text-xl font-extrabold text-movida-ink">Distribución de salarios</h2>
             <p class="mt-1 text-xs text-slate-500">Cantidad de respuestas por rango</p>
-            <div class="chart-scroll mt-4 rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-wide h-[430px]"><canvas id="chartDistribution"></canvas></div></div>
+            <div class="chart-scroll mt-4 rounded-2xl border border-slate-100 bg-slate-50 p-3"><div class="chart-wide"><canvas id="chartDistribution"></canvas></div></div>
           </article>
         </div>
 
@@ -562,12 +588,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Configuración global optimizada para gráficos limpios
             Chart.register(ChartDataLabels);
-            Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+            Chart.defaults.font.family = "'Outfit', sans-serif";
             Chart.defaults.color = '#526579'; // slate-500
             Chart.defaults.scale.grid.color = '#e9f0f4'; // slate-100
             Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(11, 42, 71, 0.96)'; // slate-900 con opacidad
-            Chart.defaults.plugins.tooltip.titleFont = { family: "'JetBrains Mono'", size: 13, weight: 'bold' };
-            Chart.defaults.plugins.tooltip.bodyFont = { family: "'Plus Jakarta Sans'", size: 13 };
+            Chart.defaults.plugins.tooltip.titleFont = { family: "'Roboto Mono'", size: 13, weight: 'bold' };
+            Chart.defaults.plugins.tooltip.bodyFont = { family: "'Outfit'", size: 13 };
             Chart.defaults.plugins.tooltip.padding = 12;
             Chart.defaults.plugins.tooltip.cornerRadius = 12;
             Chart.defaults.plugins.tooltip.boxPadding = 6;
@@ -842,15 +868,15 @@
         function updateCharts(data) {
             // Paleta dinámica de colores pasteles generada para armonía visual
             const pastelPalette = [
-                'rgba(0, 109, 143, 0.88)',   // Azul petróleo
-                'rgba(88, 185, 71, 0.86)',   // Verde SST
-                'rgba(11, 42, 111, 0.86)',   // Azul profundo
-                'rgba(0, 207, 192, 0.82)',   // Turquesa
-                'rgba(245, 158, 11, 0.82)',  // Ámbar
-                'rgba(124, 58, 237, 0.78)',  // Violeta
-                'rgba(14, 165, 233, 0.80)',  // Azul claro
-                'rgba(239, 68, 68, 0.76)',   // Rojo
-                'rgba(100, 116, 139, 0.78)'  // Gris azulado
+                'rgba(0, 109, 143, 0.88)',
+                'rgba(88, 185, 71, 0.88)',
+                'rgba(11, 42, 111, 0.88)',
+                'rgba(0, 207, 192, 0.82)',
+                'rgba(54, 184, 183, 0.82)',
+                'rgba(65, 155, 53, 0.82)',
+                'rgba(7, 101, 107, 0.82)',
+                'rgba(78, 116, 149, 0.82)',
+                'rgba(148, 163, 184, 0.82)'
             ];
 
             // 1. ROLES (Floating Bars)
@@ -897,7 +923,7 @@
                     datalabels: { 
                         display: (context) => window.innerWidth >= 768, 
                         color: '#475569', 
-                        font: { size: 11, family: "'JetBrains Mono'", weight: 'bold' }, 
+                        font: { size: 11, family: "'Roboto Mono'", weight: 'bold' }, 
                         anchor: 'end', 
                         align: 'right', 
                         padding: { left: 5 },
@@ -940,7 +966,7 @@
                         anchor: 'end', 
                         align: 'top', 
                         color: '#475569', 
-                        font: {weight:'bold', family: "'JetBrains Mono'"},
+                        font: {weight:'bold', family: "'Roboto Mono'"},
                         offset: 4
                     } 
                 },
@@ -972,7 +998,7 @@
                         anchor: 'end', 
                         align: 'right', 
                         color: '#475569', 
-                        font: {weight:'bold', family: "'JetBrains Mono'"}, 
+                        font: {weight:'bold', family: "'Roboto Mono'"}, 
                         padding: {left: 5},
                         formatter: (val) => formatMoney(val) 
                     } 
@@ -1010,7 +1036,7 @@
                         anchor: 'end', 
                         align: 'top', 
                         color: '#475569', 
-                        font: {weight:'bold', family: "'JetBrains Mono'"},
+                        font: {weight:'bold', family: "'Roboto Mono'"},
                         offset: 4,
                         formatter: (val) => formatMoney(val) 
                     } 
@@ -1062,7 +1088,7 @@
                 plugins: { 
                     legend: { 
                         position: 'bottom', 
-                        labels: { usePointStyle: true, padding: 20, font: {family: "'Plus Jakarta Sans'"} } 
+                        labels: { usePointStyle: true, padding: 20, font: {family: "'Outfit'"} } 
                     }, 
                     datalabels: { 
                         display: false // Apagado en el donut para que se vea más limpio
@@ -1071,47 +1097,114 @@
             });
         }
 
-        function renderChart(id, type, data, options = {}) {
-            const ctx = document.getElementById(id).getContext('2d');
-            if (charts[id]) charts[id].destroy();
-            
-            charts[id] = new Chart(ctx, { 
-                type, 
-                data, 
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { 
-                        legend: { display: false }, 
-                        ...options.plugins 
-                    }, 
-                    scales: (type !== 'doughnut') ? { 
-                        y: { 
-                            beginAtZero: true, 
-                            grid: { borderDash: [4, 4], color: '#f1f5f9' }, 
-                            ticks: { 
-                                callback: (val) => (type === 'bar' && options.indexAxis !== 'y' && val >= 1000) ? '$' + Math.round(val/1000) + 'k' : val, 
-                                font: {family: "'JetBrains Mono'"},
-                                ...options.scales?.y?.ticks 
-                            }, 
-                            border: {display: false},
-                            ...options.scales?.y 
-                        }, 
-                        x: { 
-                            grid: { display: false }, 
-                            ticks: {font: {family: "'Plus Jakarta Sans'"}},
-                            border: {display: false},
-                            ...options.scales?.x 
-                        } 
-                    } : {}, 
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    ...options 
-                } 
-            });
+        function getChartViewportOptions(id, type, options = {}) {
+            const mobile = window.matchMedia('(max-width: 639px)').matches;
+            const verySmall = window.matchMedia('(max-width: 359px)').matches;
+            const compactFont = verySmall ? 9 : 10;
+            const result = { ...options };
+
+            result.layout = {
+                padding: mobile ? { top: 8, right: 4, bottom: 4, left: 0 } : { top: 12, right: 10, bottom: 6, left: 4 },
+                ...(options.layout || {})
+            };
+
+            if (type !== 'doughnut') {
+                result.scales = { ...(options.scales || {}) };
+                result.scales.x = {
+                    ...(options.scales?.x || {}),
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: mobile ? 5 : 10,
+                        maxRotation: mobile ? 35 : 0,
+                        minRotation: 0,
+                        font: { family: "'Outfit'", size: compactFont },
+                        ...(options.scales?.x?.ticks || {})
+                    }
+                };
+                result.scales.y = {
+                    ...(options.scales?.y || {}),
+                    ticks: {
+                        autoSkip: true,
+                        font: { family: "'Roboto Mono'", size: compactFont },
+                        ...(options.scales?.y?.ticks || {})
+                    }
+                };
+            }
+
+            result.plugins = { ...(options.plugins || {}) };
+            result.plugins.tooltip = {
+                displayColors: false,
+                padding: mobile ? 10 : 12,
+                bodyFont: { family: "'Outfit'", size: mobile ? 12 : 13 },
+                titleFont: { family: "'Roboto Mono'", size: mobile ? 11 : 12, weight: '700' },
+                ...(options.plugins?.tooltip || {})
+            };
+            if (mobile && result.plugins.datalabels) {
+                result.plugins.datalabels = { ...result.plugins.datalabels, clamp: true, clip: false };
+            }
+            return result;
         }
+
+        function renderChart(id, type, data, options = {}) {
+            const canvas = document.getElementById(id);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (charts[id]) charts[id].destroy();
+
+            const viewportOptions = getChartViewportOptions(id, type, options);
+            const isDoughnut = type === 'doughnut';
+            const yOptions = viewportOptions.scales?.y || {};
+            const xOptions = viewportOptions.scales?.x || {};
+            const yTicks = yOptions.ticks || {};
+            const xTicks = xOptions.ticks || {};
+
+            const finalOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                resizeDelay: 120,
+                devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+                interaction: { mode: 'index', intersect: false },
+                ...viewportOptions,
+                plugins: {
+                    legend: { display: false },
+                    ...viewportOptions.plugins
+                },
+                scales: isDoughnut ? {} : {
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [4, 4], color: '#edf2f5' },
+                        border: { display: false },
+                        ...yOptions,
+                        ticks: {
+                            callback: (val) => (type === 'bar' && viewportOptions.indexAxis !== 'y' && val >= 1000)
+                                ? '$' + Math.round(val / 1000) + 'k'
+                                : val,
+                            font: { family: "'Roboto Mono'", size: window.innerWidth < 640 ? 9 : 11 },
+                            ...yTicks
+                        }
+                    },
+                    x: {
+                        grid: { display: false },
+                        border: { display: false },
+                        ...xOptions,
+                        ticks: {
+                            font: { family: "'Outfit'", size: window.innerWidth < 640 ? 9 : 11 },
+                            ...xTicks
+                        }
+                    }
+                }
+            };
+
+            charts[id] = new Chart(ctx, { type, data, options: finalOptions });
+        }
+
+        let chartResizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(chartResizeTimer);
+            chartResizeTimer = setTimeout(() => {
+                if (filteredData.length > 0) updateCharts(filteredData);
+            }, 220);
+        }, { passive: true });
 
         // --- UTILIDADES ---
         function groupByAvg(data, groupKey, valueKey) {
